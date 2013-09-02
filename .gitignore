@@ -35,6 +35,7 @@ nosetests.xml
 .pydevproject
 
 # Logs
+logs/
 .log
 
 # Temp files
