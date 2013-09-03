@@ -2,10 +2,12 @@ import socket
 import csv
 import web
 import json
+import sys
+import os
+import traceback
+import settings
 
-import sys, os,traceback
 abspath = os.path.dirname(os.path.abspath(__file__))
-#print abspath
 if abspath not in sys.path:
 	sys.path.append(abspath)
 if abspath+'/templates' not in sys.path:
@@ -15,8 +17,7 @@ os.chdir(abspath)
 
 render = web.template.render('templates/')
 
-db1=web.database(dbn='postgres',user='',pw='',db='')
-db2=web.database(dbn='postgres',user='',pw='',db='')
+db=web.database(dbn='postgres',user=settings.USER,pw=settings.PASSWORD,db=settings.DBNAME)
 
 urls = (
 	'/', 'index',
@@ -80,12 +81,12 @@ class content:
 	def GET(SELF,dise_cluster,klp_cluster):
 			
 		fp1=csv.reader(open('data/DISE.csv','r'),delimiter='|')
-		dise_school_id=db1.query('select distinct dise_code from dise_match_found')
+		dise_school_id=db.query('select distinct dise_code from dise_match_found')
 		dise_school_ids=[str(row.dise_code) for row in dise_school_id]
 		dise_schools=[row for row in fp1 if row[2].strip() == dise_cluster.strip() and row[3].strip() not in dise_school_ids]
 
 		fp2=csv.reader(open('data/KLP.csv','r'),delimiter='|')
-		klp_school_id=db1.query('select distinct klp_code from dise_match_found')
+		klp_school_id=db.query('select distinct klp_code from dise_match_found')
 		klp_school_ids=[str(row.klp_code) for row in klp_school_id]
 		klp_schools=[row for row in fp2 if row[2].strip() == klp_cluster.strip() and row[3].strip() not in klp_school_ids]
 
@@ -105,8 +106,8 @@ class result:
 		queryvalues["klpname"]=str(inputs.klp_value).split("|")[1]
 		queryvalues["klpdisecode"]=str(inputs.klp_value).split("|")[2]
 		
-		db1.query('insert into dise_match_found values($disecode,$disename,$klpcode,$klpname,$klpdisecode)',queryvalues)
-		db1.query('update dise_match_found set flag=case when cast(klp_dise_code as text) !=trim($disecode) then 1 else 0 end',queryvalues)
+		db.query('insert into dise_match_found values($disecode,$disename,$klpcode,$klpname,$klpdisecode)',queryvalues)
+		db.query('update dise_match_found set flag=case when cast(klp_dise_code as text) !=trim($disecode) then 1 else 0 end',queryvalues)
 
         raise web.seeother('/content/'+str(inputs.matched_value).split("|")[0]+'/'+str(inputs.matched_value).split("|")[1])
 

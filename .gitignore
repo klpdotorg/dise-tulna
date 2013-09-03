@@ -40,3 +40,6 @@ logs/
 
 # Temp files
 *~
+
+# Settings file
+settings.py
