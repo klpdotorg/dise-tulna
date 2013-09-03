@@ -5,19 +5,19 @@ import json
 import sys
 import os
 import traceback
-import settings
 
 abspath = os.path.dirname(os.path.abspath(__file__))
 if abspath not in sys.path:
 	sys.path.append(abspath)
 if abspath+'/templates' not in sys.path:
 	sys.path.append(abspath+'/templates')
+import settings
 
 os.chdir(abspath)
 
 render = web.template.render('templates/')
 
-db=web.database(dbn='postgres',user=settings.USER,pw=settings.PASSWORD,db=settings.DBNAME)
+db=web.database(dbn='postgres',user=settings.USERNAME,pw=settings.PASSWORD,db=settings.DBNAME)
 
 urls = (
 	'/', 'index',
