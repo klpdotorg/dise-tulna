@@ -11,6 +11,7 @@ if abspath not in sys.path:
 	sys.path.append(abspath)
 if abspath+'/templates' not in sys.path:
 	sys.path.append(abspath+'/templates')
+import settings
 
 os.chdir(abspath)
 import settings
