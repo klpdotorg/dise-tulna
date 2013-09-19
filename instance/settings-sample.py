@@ -1,3 +1,4 @@
+SITE_TITLE = ''
 USERNAME = ''
 PASSWORD = ''
 DBNAME = ''
