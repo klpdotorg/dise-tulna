@@ -13,26 +13,28 @@
       	<div class="form-group">
       	<select class="form-control" id="klp_dist" name="dist" onchange="change_focus(this.value,'klp_blk',2);">
                 <option value="0">KLP District</option>
-				<!-- $for dist in klp_district:
-                <option value='$dist'>$dist.title()</option> -->
+                {% for district in klp_district %}
+                <option value='{{ district }}'>{{ district.title() }}</option>
+				{% endfor %}
 		</select>
 		<select class="form-control" id="klp_blk" name="blk" onchange="change_focus(this.value,'klp_clust',2);">
                 <option value="0">KLP Block</option>
 		</select>
-		<select class="form-control" id="klp_clust" name="clust" onchange="callpage(this.value);">
+		<select class="form-control" id="klp_clust" name="klp" onchange="">
                 <option value="0">KLP Cluster</option>
 		</select>
 	</div>
 	<div class="form-group">
 		<select class="form-control" id="dise_dist" name="dist" onchange="change_focus(this.value,'dise_blk',2);">
 		<option value="0">DISE District</option>
-<!-- $for dist in dise_district:
-                <option value='$dist'>$dist.title()</option> -->
+                {% for district in dise_district %}
+                <option value='{{ district }}'>{{ district.title() }}</option>
+                {% endfor %}
 	</select>
 	<select class="form-control" id="dise_blk" name="blk" onchange="change_focus(this.value,'dise_clust',2);">
 		<option value="0">DISE Block</option>
 	</select>
-	<select class="form-control" id="dise_clust" name="clust" onchange="callpage(this.value);">
+	<select class="form-control" id="dise_clust" name="dise" onchange="">
 		<option value="0">DISE Cluster</option>
 	</select>
 	</div>
@@ -44,4 +46,39 @@
 
 {% endblock %}
 {% block footerscripts %}
+	<script type="text/javascript">
+	var dise_block, dise_clust, klp_block, klp_clust;
+
+	 $(function() {
+
+		dise_block=[
+		{% for row in dise_block %}
+			['{{ row[0] }}','{{ row[1] }}'],
+		{% endfor %}
+			['0','0']];
+			
+		dise_clust=[
+		{% for row in dise_cluster %}
+		  ['{{ row[0] }}','{{ row[1] }}'],
+		 {% endfor %}
+		['0','0']];
+
+
+		klp_block=[
+		{% for row in klp_block %}
+		  ['{{ row[0] }}','{{ row[1] }}'],
+		{% endfor %}
+		['0','0']];
+
+
+		klp_clust=[
+		{% for row in klp_cluster %}
+		  ['{{ row[0] }}','{{ row[1] }}'],
+		{% endfor %}
+		['0','0']];
+
+		console.log('hey!');
+
+	});
+	</script>
 {% endblock %}
