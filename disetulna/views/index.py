@@ -56,12 +56,8 @@ def match():
     dise_school_ids = Match.query.order_by('dise_code').distinct().all()
     dise_schools=[row for row in fp1 if row[2].strip() == dise_cluster.strip() and row[3].strip() not in dise_school_ids]
     dise_schools.sort()
-    # print dise_schools
- 
     fp2=csv.reader(open('disetulna/static/data/klp-sample.csv','r'),delimiter='|')
     klp_school_ids = Match.query.order_by('klp_code').distinct().all()
     klp_schools=[row for row in fp2 if row[2].strip() == klp_cluster.strip() and row[3].strip() not in klp_school_ids]
     klp_schools.sort()
-    # print klp_schools
-    # return render_template('match.html', dise_schools=dise_schools, klp_schools=klp_schools)
     return render_template('match.html', klp_schools=klp_schools, dise_schools=dise_schools)

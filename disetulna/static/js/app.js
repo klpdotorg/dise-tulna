@@ -21,3 +21,11 @@ function change_focus(id,type,flag)
 		}
 	}
 }
+$('tr').click(function() {
+	// $(this).addClass('warning').siblings().removeClass('warning');
+	console.log('meh');
+});
+
+function register (type) {
+
+}
