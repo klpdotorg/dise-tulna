@@ -3,6 +3,7 @@
 import csv
 from flask import render_template, request, redirect, url_for
 from .. import app
+from disetulna.models import db, Match
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -42,10 +43,23 @@ def index():
                 klp_cluster.append([row[1],row[2]])     
         return render_template('index.html', dise_district=dise_district,dise_block=dise_block,dise_cluster=dise_cluster,klp_district=klp_district,klp_block=klp_block,klp_cluster=klp_cluster)
     else:
-        print request.form['dise']
-        return redirect(url_for('clicked'), code=303)
+        dise = request.form['dise']
+        klp = request.form['klp']
+        return redirect(url_for('match', dise=dise, klp=klp))
 
 
-@app.route('/clicked')
-def clicked():
-    return render_template('clicked.html')
+@app.route('/match', methods=['GET'])
+def match():
+    dise_cluster = request.args['dise']
+    klp_cluster = request.args['klp']
+    fp1=csv.reader(open('disetulna/static/data/dise-sample.csv','r'),delimiter='|')
+    dise_school_ids = Match.query.order_by('dise_code').distinct().all()
+    dise_schools=[row for row in fp1 if row[2].strip() == dise_cluster.strip() and row[3].strip() not in dise_school_ids]
+    # print dise_schools
+ 
+    fp2=csv.reader(open('disetulna/static/data/klp-sample.csv','r'),delimiter='|')
+    klp_school_ids = Match.query.order_by('klp_code').distinct().all()
+    klp_schools=[row for row in fp2 if row[2].strip() == klp_cluster.strip() and row[3].strip() not in klp_school_ids]
+    # print klp_schools
+    # return render_template('match.html', dise_schools=dise_schools, klp_schools=klp_schools)
+    return render_template('match.html', klp_schools=klp_schools, dise_schools=dise_schools)

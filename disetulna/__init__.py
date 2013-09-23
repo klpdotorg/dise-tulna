@@ -25,6 +25,5 @@ assets.register('css_all', css)
 
 # Second, import the models and views
 
-from . import views
-# from . import models, views
-# from .models import db
+from . import views, models
+from .models import db

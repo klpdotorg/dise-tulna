@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from disetulna import app
-# from dise-tulna.models import db
+from disetulna.models import db
 from os import environ
 
 # environ['PEOPLEFLOW_ENV'] = 'dev'

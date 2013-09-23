@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row">
+	<div class="col-lg-6">
+		<table class="table table-hover table-condensed table-striped">
+			<thead>
+				<tr><th>KLP</th><th>Name</th><th>DISE Code</th></tr>
+			</thead>
+			<tbody>
+				{% for school in klp_schools %}
+				<tr>
+					<td>{{ school[3] }}</td>
+					<td>{{ school[4] }}</td>
+					<td>{{ school[5] }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="col-lg-6">
+			<table class="table table-hover table-condensed table-striped">
+			<thead>
+				<tr><th>DISE Code</th><th>Name</th></tr>
+			</thead>
+			<tbody>
+				{% for school in dise_schools %}
+				<tr>
+					<td>{{ school[3] }}</td>
+					<td>{{ school[4] }}</td>
+				</tr>
+				{% endfor %}				
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}
