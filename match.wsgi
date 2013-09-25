@@ -117,7 +117,7 @@ class content:
         klp_school_id=db.query('select distinct klp_code from dise_match_found')
         klp_school_ids=[str(row.klp_code) for row in klp_school_id]
         klp_schools=[row for row in fp2 if row[2].strip() == klp_cluster.strip() and row[3].strip() not in klp_school_ids]
-        print klp_schools
+        #print klp_schools
        
         return render.content(dise_schools, klp_schools)
 

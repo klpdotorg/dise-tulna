@@ -12,7 +12,13 @@ function getdata() {
 	  type: "POST",
 	  url: '/content',
 	  data: data,
-	  dataType: 'json'
+	  //dataType: 'json',
+	  success: function(response){ document.getElementById("content").innerHTML=response; },
+	  error: function (xhr, ajaxOptions, thrownError) {
+         	alert(xhr.status);
+        	alert(thrownError);
+		alert("Error");
+      		}
 	});
 }
 function change_focus(id,type,flag)

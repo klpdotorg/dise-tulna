@@ -1,9 +1,15 @@
 $def with (dise_schools,klp_schools)
+
+<html>
+<head>
+<title></title>
+</head>
+<body>
 	<form id="form1" name="form1" method="post" action="/match">
 
 		<input type="hidden" id="dise_value" name="dise_value"/><input type="hidden" id="klp_value" name="klp_value"/><input type="hidden" id="matched_value" name="matched_value">
 
-		<!--Filter by School Name: <input type="text" onkeyup="filter(this.value);"> <input type="button" value="Match Found" onclick="formsubmit();">-->
+		Filter by School Name: <input type="text" onkeyup="filter(this.value);"> <input type="button" value="Match Found" onclick="formsubmit();">
 		<br><br>
 
 		<div align="left" style="height: 100; width: 50%; float:left;">
@@ -38,3 +44,5 @@ $def with (dise_schools,klp_schools)
 			</table>
 		</div>
 	</form>
+</body>
+</html>
