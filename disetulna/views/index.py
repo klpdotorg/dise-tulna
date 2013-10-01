@@ -54,10 +54,22 @@ def match():
     klp_cluster = request.args['klp']
     fp1=csv.reader(open('disetulna/static/data/dise-sample.csv','r'),delimiter='|')
     dise_school_ids = Match.query.order_by('dise_code').distinct().all()
+    dise_school_ids = [str(row.dise_code).strip() for row in dise_school_ids]
     dise_schools=[row for row in fp1 if row[2].strip() == dise_cluster.strip() and row[3].strip() not in dise_school_ids]
     dise_schools.sort()
     fp2=csv.reader(open('disetulna/static/data/klp-sample.csv','r'),delimiter='|')
     klp_school_ids = Match.query.order_by('klp_code').distinct().all()
+    klp_school_ids = [str(row.klp_code).strip() for row in klp_school_ids]
     klp_schools=[row for row in fp2 if row[2].strip() == klp_cluster.strip() and row[3].strip() not in klp_school_ids]
     klp_schools.sort()
     return render_template('match.html', klp_schools=klp_schools, dise_schools=dise_schools)
+
+@app.route('/content', methods=['POST'])
+def content():
+    dise = request.form['dise_clust']
+    klp = request.form['klp_clust']
+    dise_code=request.form['dise'].split('|')
+    klp_code=request.form['klp'].split('|')
+    db.session.add(Match(dise_code[0].strip(), dise_code[1].strip(), klp_code[0].strip(), klp_code[1].strip(), klp_code[2].strip(), 1))
+    db.session.commit()
+    return url_for('match', dise=dise, klp=klp)
