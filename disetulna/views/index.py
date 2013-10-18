@@ -73,3 +73,8 @@ def content():
     db.session.add(Match(dise_code[0].strip(), dise_code[1].strip(), klp_code[0].strip(), klp_code[1].strip(), klp_code[2].strip(), 1))
     db.session.commit()
     return url_for('match', dise=dise, klp=klp)
+
+
+@app.route('/login', methods=['GET'])
+def log():
+    return render_template('login.html')

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+  <div class="login">
+          <button type="button" class="close" onclick="window.location.href='http://0.0.0.0:8000';">&times;</button>
+          
+          <div align="left" style="height:10%; width: 100%; float:left;"> 
+             
+            User Name: <br> 
+            <input id="username" name="username" type="text" class="box2">
+          </div>
+          <div align="left" style="height:10%; width: 100%; float:right;">
+            Password: <br> 
+            <input id ="password" name="password" type="password" class="box2">
+          </div>
+          <button type="button" class="btn btn-primary" style="outline:none;" onclick="">Sign in</button>&nbsp;&nbsp;&nbsp;&nbsp;
+          
+  </div>
+
+{% endblock %}
+{% block footerscripts %}
+{% endblock %}
